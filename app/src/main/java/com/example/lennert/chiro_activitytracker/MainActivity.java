@@ -1,8 +1,10 @@
 package com.example.lennert.chiro_activitytracker;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,33 +12,65 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    //public static TextView mSaturdayTextView;
 
-    private static final int NUM_LIST_ITEMS = 100;
+    //public static TextView mSaturday;
 
+    private static final String URL_DATA = "https://api.myjson.com/bins/rxshb";
 
+    public AdapterRecycler mAdapter;
+    private RecyclerView mRecyclerView;
+
+    private List<RecyclerItem> mRecyclerItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mSaturdayTextView = findViewById(R.id.Saturday);
+        //mSaturday = findViewById(R.id.saturday_item);
 
         //LES 2
-        fetchDataFromInternet process = new fetchDataFromInternet();
-        process.execute();
+        //fetchDataFromInternet process = new fetchDataFromInternet();
+        //process.execute();
+
+        loadRecyclerViewData();
 
         //LES 3
+        mRecyclerView = findViewById(R.id.rec_saturdays);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        
+        mRecyclerView.setHasFixedSize(true);
+
+        mRecyclerItems = new ArrayList<>();
+        /*
+        for(int i = 0; i<=10; i++){
+            RecyclerItem recyclerItem = new RecyclerItem("date" + (i+1));
+            mRecyclerItems.add(recyclerItem);
+        }
+
+        mAdapter = new AdapterRecycler(mRecyclerItems, this);
+        mRecyclerView.setAdapter(mAdapter);
+        */
+
     }
-
-
-
 
 
     //LES 1
@@ -65,4 +99,51 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //LES 2
+
+    private void loadRecyclerViewData() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading data...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String data) {
+                progressDialog.dismiss();
+                JSONObject jsonObject;
+                try {
+                    jsonObject = new JSONObject(data);
+                    JSONArray JA = jsonObject.getJSONArray("saturdays");
+
+                    for (int i= 0; i<JA.length();i++){
+                        JSONObject JO = JA.getJSONObject(i);
+                        String singleParsed;
+                        singleParsed = JO.getString("day") + " " + JO.getString("month") + " " + JO.getString("year");//een single json object van de array
+                        RecyclerItem recyclerItem = new RecyclerItem(singleParsed);
+                        mRecyclerItems.add(recyclerItem);
+                    }
+
+                    mAdapter = new AdapterRecycler(mRecyclerItems, getApplicationContext());
+                    mRecyclerView.setAdapter(mAdapter);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
 }

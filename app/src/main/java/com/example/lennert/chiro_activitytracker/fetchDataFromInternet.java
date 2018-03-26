@@ -17,13 +17,14 @@ import java.net.URL;
 /**
  * Created by Lennert on 8/03/2018.
  */
+/*
+public class fetchDataFromInternet extends AsyncTask<String, Void, String[]> {
+    private String data = "";
+    private String[] dataParsed;
+    private String singleParsed = "";
 
-public class fetchDataFromInternet extends AsyncTask<Void,Void,Void> {
-    String data = "";
-    String dataParsed = "";
-    String singleParsed = "";
     @Override
-    protected Void doInBackground(Void... voids) { //background thread
+    protected String[] doInBackground(String... params) { //background thread
         try {
             URL url = new URL("https://api.myjson.com/bins/x7art"); //data fetched from this data
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //er wordt een connectie gemaakt
@@ -42,9 +43,11 @@ public class fetchDataFromInternet extends AsyncTask<Void,Void,Void> {
                 JSONObject JO = (JSONObject) JA.get(i);
                 singleParsed = JO.get("day") + " " + JO.get("month") + " " + JO.get("year") + "\n";//een single json object van de array
 
-                dataParsed = dataParsed + singleParsed;
+                dataParsed[i] = singleParsed;
+                //dataParsed = dataParsed + singleParsed;
             }
 
+            return dataParsed;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -58,9 +61,12 @@ public class fetchDataFromInternet extends AsyncTask<Void,Void,Void> {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) { //Ui thread
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(String[] saturdays) { //Ui thread
+        super.onPostExecute(saturdays);
 
-        MainActivity.mSaturdayTextView.setText(this.dataParsed);
+        MainActivity.mAdapter.setmSaturdays(dataParsed);
+
+        //MainActivity.mSaturday.setText(this.dataParsed);
+
     }
-}
+} */
