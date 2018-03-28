@@ -15,4 +15,6 @@ public class RecyclerItem {
     public String getSaturdayDate() {
         return saturdayDate;
     }
+
+
 }

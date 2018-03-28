@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,17 +25,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterRecycler.ListItemClickListener {
 
 
     //public static TextView mSaturday;
 
     private static final String URL_DATA = "https://api.myjson.com/bins/rxshb";
 
+    //LES 3
     public AdapterRecycler mAdapter;
     private RecyclerView mRecyclerView;
-
     private List<RecyclerItem> mRecyclerItems;
+
+    private Toast mToast;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         mRecyclerItems = new ArrayList<>();
-        /*
-        for(int i = 0; i<=10; i++){
-            RecyclerItem recyclerItem = new RecyclerItem("date" + (i+1));
-            mRecyclerItems.add(recyclerItem);
-        }
-
-        mAdapter = new AdapterRecycler(mRecyclerItems, this);
-        mRecyclerView.setAdapter(mAdapter);
-        */
 
     }
 
@@ -124,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         mRecyclerItems.add(recyclerItem);
                     }
 
-                    mAdapter = new AdapterRecycler(mRecyclerItems, getApplicationContext());
+                    mAdapter = new AdapterRecycler(mRecyclerItems, getApplicationContext(), );
                     mRecyclerView.setAdapter(mAdapter);
 
 
@@ -146,4 +140,16 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    //LES 3
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        if (mToast != null){
+            mToast.cancel();
+        }
+
+        String toastMessage = "Item clicked.";
+        mToast = Toast.makeText(this,toastMessage,Toast.LENGTH_LONG);
+
+        mToast.show();
+    }
 }
