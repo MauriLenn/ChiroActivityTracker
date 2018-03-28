@@ -118,9 +118,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
                         mRecyclerItems.add(recyclerItem);
                     }
 
-                    mAdapter = new AdapterRecycler(mRecyclerItems, getApplicationContext(), );
-                    mRecyclerView.setAdapter(mAdapter);
 
+                    mAdapter = new AdapterRecycler(mRecyclerItems, getApplicationContext(),MainActivity.this);
+                    mRecyclerView.setAdapter(mAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
                     }
                 });
 
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
             mToast.cancel();
         }
 
-        String toastMessage = "Item clicked.";
+        String toastMessage = "Item " + clickedItemIndex + " clicked";
         mToast = Toast.makeText(this,toastMessage,Toast.LENGTH_LONG);
 
         mToast.show();
