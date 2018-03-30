@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lennert.chiro_activitytracker.DetailActivity">
+
+        <TextView
+            android:id="@+id/tv_titleSaturday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="this is the title"
+            android:textSize="32sp"
+            android:textAlignment="center"
+            android:background="@color/colorPrimary"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tv_nameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_titleSaturday"
+            android:text="Name Activity"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+        <EditText
+            android:id="@+id/et_nameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_nameActivity"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_descriptionActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_nameActivity"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Description Activity"
+            android:textSize="20sp"
+            />
+        <EditText
+            android:id="@+id/et_descriptionActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_descriptionActivity"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_numberOfMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number Of Members"
+            android:layout_below="@+id/et_descriptionActivity"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_numberOfMembers"
+            android:layout_alignBottom="@+id/tv_numberOfMembers"
+            android:layout_alignEnd="@+id/et_descriptionActivity"
+            android:layout_alignRight="@+id/et_descriptionActivity"
+            android:text="Number of Drinks"
+            android:textSize="18sp" />
+
+
+</RelativeLayout>
