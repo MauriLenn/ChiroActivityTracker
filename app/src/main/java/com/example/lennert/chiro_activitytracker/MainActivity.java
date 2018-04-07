@@ -90,9 +90,8 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
 
         if (menuItemThatWasSelected == R.id.action_settings) {
-            Context context = MainActivity.this;
-            String message = "Settings clicked";
-            Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+            Intent startSettingsActivityIntent = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(startSettingsActivityIntent);
             return true;
         }
 

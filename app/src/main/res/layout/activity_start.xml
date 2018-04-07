@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lennert.chiro_activitytracker.StartActivity">
-
-
-    <DatePicker
-        android:id="@+id/calendar"
-        android:layout_width="wrap_content"
+    android:layout_width="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        tools:context="com.example.lennert.chiro_activitytracker.StartActivity">
 
-    <Button
-        android:id="@+id/bt_listChiroSaturdays"
-        android:text="list ChiroSaturdays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/calendar"
-        android:layout_alignStart="@+id/calendar"
-        android:layout_below="@+id/calendar" />
 
-    <Button
-        android:id="@+id/bt_chiroWebsite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/calendar"
-        android:layout_alignRight="@+id/calendar"
-        android:layout_below="@+id/calendar"
-        android:text="Chirowebsite"
-        android:layout_toRightOf="@id/bt_listChiroSaturdays"
-        android:layout_toEndOf="@id/bt_listChiroSaturdays" />
+        <DatePicker
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/bt_listChiroSaturdays"
+            android:text="list ChiroSaturdays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/calendar"
+            android:layout_alignStart="@+id/calendar"
+            android:layout_below="@+id/calendar"
+            android:onClick="onClickOpenMainActivityButton"/>
+
+        <Button
+            android:id="@+id/bt_chiroWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/calendar"
+            android:layout_alignRight="@+id/calendar"
+            android:layout_below="@+id/calendar"
+            android:text="Chirowebsite"
+            android:layout_toRightOf="@id/bt_listChiroSaturdays"
+            android:layout_toEndOf="@id/bt_listChiroSaturdays"
+            android:onClick="onClickOpenChiroWebsiteButton"/>
+
+    </RelativeLayout>
+</ScrollView>
+
+
+
