@@ -57,7 +57,7 @@ public class StartActivity extends AppCompatActivity {
         /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
         MenuInflater inflater = getMenuInflater();
         /* Use the inflater's inflate method to inflate our menu layout to this menu */
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.start, menu);
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
@@ -68,7 +68,7 @@ public class StartActivity extends AppCompatActivity {
         int menuItemThatWasSelected = item.getItemId();
 
 
-        if (menuItemThatWasSelected == R.id.action_settings) {
+        if (menuItemThatWasSelected == R.id.action_settingsActivity) {
             Intent startSettingsActivityIntent = new Intent(StartActivity.this,SettingsActivity.class);
             startActivity(startSettingsActivityIntent);
         }

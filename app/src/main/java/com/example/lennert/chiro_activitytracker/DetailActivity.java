@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +18,15 @@ import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
-    //private CalendarView mCalender;
+
+    //LOGGING
+    private static final String ON_SAVE_INSTANCE_STATE = "onSaveInstanceState";
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String NAME_ACTIVITY_TEXT_KEY = "name activity";
+    private static final String DESCRIPTION_ACTIVITY_TEXT_KEY = "description activity";
+    private static final String NUMBER_OF_MEMBERS_TEXT_KEY = "number of members";
+    private static final String NUMBER_OF_DRINKS_TEXT_KEY = "number of drinks";
+    private static final String RATING_TEXT_KEY = "rating";
 
     private TextView mTitleSaturday;
     private TextView mNameActivity;
@@ -32,6 +41,8 @@ public class DetailActivity extends AppCompatActivity {
     private EditText mEditNumberOfDrinks;
 
     private Rating mEditRating;
+
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,37 @@ public class DetailActivity extends AppCompatActivity {
             mTitleSaturday.setText(selectedSaturday);
 
         }
+        /*
+        //LES 5
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(NAME_ACTIVITY_TEXT_KEY)) {
+                String previousText = savedInstanceState
+                        .getString(NAME_ACTIVITY_TEXT_KEY);
+                mEditNameActivity.setText(previousText);
+            }
+            if (savedInstanceState.containsKey(DESCRIPTION_ACTIVITY_TEXT_KEY)) {
+                String previousText = savedInstanceState
+                        .getString(DESCRIPTION_ACTIVITY_TEXT_KEY);
+                mEditDescriptionActivity.setText(previousText);
+            }
+            if (savedInstanceState.containsKey(NUMBER_OF_MEMBERS_TEXT_KEY)) {
+                String previousText = savedInstanceState
+                        .getString(NUMBER_OF_MEMBERS_TEXT_KEY);
+                mEditNumberOfMembers.setText(previousText);
+            }
+            if (savedInstanceState.containsKey(NUMBER_OF_DRINKS_TEXT_KEY)) {
+                String previousText = savedInstanceState
+                        .getString(NUMBER_OF_DRINKS_TEXT_KEY);
+                mEditNumberOfDrinks.setText(previousText);
+            }
+            if (savedInstanceState.containsKey(RATING_TEXT_KEY)) {
+                String previousText = savedInstanceState
+                        .getString(RATING_TEXT_KEY);
+                float previousRating = Float.parseFloat(previousText);
+                //mEditRating.setRating(previousRating);
+            }
+
+        } */
     }
 
     @Override
@@ -67,6 +109,7 @@ public class DetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         /* Use the inflater's inflate method to inflate our menu layout to this menu */
         inflater.inflate(R.menu.detail, menu);
+        inflater.inflate(R.menu.settings, menu);
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
@@ -78,11 +121,59 @@ public class DetailActivity extends AppCompatActivity {
 
 
         if (menuItemThatWasSelected == R.id.action_ok) {
+            //
+            //gegevens uploaden
+            //
             Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
             startActivity(startMainActivityIntent);
             return true;
         }
 
+        if (menuItemThatWasSelected == R.id.action_back) {
+            Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
+            startActivity(startMainActivityIntent);
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
+    }
+    /*
+    //LES 5
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        logAndAppend(ON_SAVE_INSTANCE_STATE);
+
+        String editNameActivity = mEditNameActivity.getText().toString();
+        String editDescriptionActivity = mEditDescriptionActivity.getText().toString();
+        String editNumberOfMembers = mEditNumberOfMembers.getText().toString();
+        String editNumberOfDrinks = mEditNumberOfDrinks.getText().toString();
+
+        outState.putString(NAME_ACTIVITY_TEXT_KEY,editNameActivity);
+        outState.putString(DESCRIPTION_ACTIVITY_TEXT_KEY,editDescriptionActivity);
+        outState.putString(NUMBER_OF_MEMBERS_TEXT_KEY,editNumberOfMembers);
+        outState.putString(NUMBER_OF_DRINKS_TEXT_KEY,editNumberOfDrinks);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            String editRating = String.valueOf(mEditRating.getStarRating());
+            outState.putString(RATING_TEXT_KEY,editRating);
+        }
+        else{
+            if (mToast != null){
+                mToast.cancel();
+            }
+
+            String toastMessage = "This API doesn't support the rating";
+            mToast = Toast.makeText(this,toastMessage,Toast.LENGTH_LONG);
+
+            mToast.show();
+        }
+
+    } */
+
+    private void logAndAppend(String Event) {
+        Log.d(TAG, "Event: " + Event);
+
     }
 }

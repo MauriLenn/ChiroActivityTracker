@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,9 +29,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterRecycler.ListItemClickListener {
 
+    //LOGGING
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String DATA = "loading data";
 
-    //public static TextView mSaturday;
-
+    //LES 2
     private static final String URL_DATA = "https://api.myjson.com/bins/rxshb";
 
     //LES 3
@@ -39,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     private List<RecyclerItem> mRecyclerItems;
 
     private Toast mToast;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         mRecyclerItems = new ArrayList<>();
 
         //LES 4
-        Intent intent_detailActivity = new Intent(MainActivity.this, DetailActivity.class);
-        //startActivity(intent_detailActivity);
 
     }
 
@@ -89,10 +88,15 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         int menuItemThatWasSelected = item.getItemId();
 
 
-        if (menuItemThatWasSelected == R.id.action_settings) {
+        if (menuItemThatWasSelected == R.id.action_settingsActivity) {
             Intent startSettingsActivityIntent = new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(startSettingsActivityIntent);
             return true;
+        }
+
+        if (menuItemThatWasSelected == R.id.action_startActivity) {
+            Intent startStartActivityIntent = new Intent(MainActivity.this,StartActivity.class);
+            startActivity(startStartActivityIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -143,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        logAndAppend(DATA);
     }
 
     //LES 3
@@ -158,4 +163,11 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
         startActivity(startDetailActivityIntent);
     }
+
+    //logging
+
+    private void logAndAppend(String Event) {
+        Log.d(TAG, "Event: " + Event);
+    }
 }
+
