@@ -4,4 +4,6 @@
     <string name="settings">Settings</string>
     <string name="ok">Ok</string>
     <string name="beginScreen">Menu</string>
+
+    <string name="pref_kindOfUser" translatable="false">kindOfUser</string>
 </resources>

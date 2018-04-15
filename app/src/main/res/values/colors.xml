@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="kabouterBrown">#8b4513</color>
+    <color name="speelclubGreen">#4CAF50</color>
+    <color name="rakkerGreen">#1B5E20</color>
+    <color name="topperRed">#B71C1C</color>
+    <color name="kerelBlue">#1A237E</color>
+    <color name="aspiOrange">#FF4500</color>
+
+
 </resources>

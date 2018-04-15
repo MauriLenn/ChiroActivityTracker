@@ -2,13 +2,16 @@ package com.example.lennert.chiro_activitytracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,7 +19,7 @@ import android.widget.Toast;
 
 //LES 4
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     //LOGGING
@@ -41,13 +44,14 @@ public class DetailActivity extends AppCompatActivity {
     private EditText mEditNumberOfDrinks;
 
     private Rating mEditRating;
-
     private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+
 
         //mCalender = (CalendarView) findViewById(R.id.calendar);
 
@@ -68,6 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
             String selectedSaturday = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
             mTitleSaturday.setText(selectedSaturday);
+            setupSharedPreferences();
 
         }
         /*
@@ -101,6 +106,33 @@ public class DetailActivity extends AppCompatActivity {
             }
 
         } */
+    }
+
+    private void setupSharedPreferences(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        /*
+        mNameActivity.setVisibility(View.VISIBLE);
+        mEditNameActivity.setVisibility(View.VISIBLE);
+
+        mDescriptionActivity.setVisibility(View.VISIBLE);
+        mEditDescriptionActivity.setVisibility(View.VISIBLE);
+        */
+
+        if (sharedPreferences.getBoolean(getString(R.string.pref_kindOfUser),getResources().getBoolean(R.bool.pref_kindOfUser_default))){
+            mNumberOfDrinks.setVisibility(View.GONE);
+            mEditNumberOfDrinks.setVisibility(View.GONE);
+
+            mNumberOfMembers.setVisibility(View.GONE);
+            mEditNumberOfMembers.setVisibility(View.GONE);
+        }
+        /*
+        mNumberOfDrinks.setVisibility(View.VISIBLE);
+        mEditNumberOfDrinks.setVisibility(View.VISIBLE);
+
+        mNumberOfMembers.setVisibility(View.VISIBLE);
+        mEditNumberOfMembers.setVisibility(View.VISIBLE);
+        */
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -172,8 +204,29 @@ public class DetailActivity extends AppCompatActivity {
 
     } */
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_kindOfUser))){
+            if (sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_kindOfUser_default))){
+                mNumberOfDrinks.setVisibility(View.GONE);
+                mEditNumberOfDrinks.setVisibility(View.GONE);
+
+                mNumberOfMembers.setVisibility(View.GONE);
+                mEditNumberOfMembers.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
     private void logAndAppend(String Event) {
         Log.d(TAG, "Event: " + Event);
 
     }
+
+
 }
