@@ -72,9 +72,10 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
             String selectedSaturday = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
             mTitleSaturday.setText(selectedSaturday);
-            setupSharedPreferences();
+
 
         }
+        setupSharedPreferences();
         /*
         //LES 5
         if (savedInstanceState != null) {
@@ -110,14 +111,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
     private void setupSharedPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        /*
-        mNameActivity.setVisibility(View.VISIBLE);
-        mEditNameActivity.setVisibility(View.VISIBLE);
-
-        mDescriptionActivity.setVisibility(View.VISIBLE);
-        mEditDescriptionActivity.setVisibility(View.VISIBLE);
-        */
-
         if (sharedPreferences.getBoolean(getString(R.string.pref_kindOfUser),getResources().getBoolean(R.bool.pref_kindOfUser_default))){
             mNumberOfDrinks.setVisibility(View.GONE);
             mEditNumberOfDrinks.setVisibility(View.GONE);
@@ -125,13 +118,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
             mNumberOfMembers.setVisibility(View.GONE);
             mEditNumberOfMembers.setVisibility(View.GONE);
         }
-        /*
-        mNumberOfDrinks.setVisibility(View.VISIBLE);
-        mEditNumberOfDrinks.setVisibility(View.VISIBLE);
-
-        mNumberOfMembers.setVisibility(View.VISIBLE);
-        mEditNumberOfMembers.setVisibility(View.VISIBLE);
-        */
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -141,7 +127,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         MenuInflater inflater = getMenuInflater();
         /* Use the inflater's inflate method to inflate our menu layout to this menu */
         inflater.inflate(R.menu.detail, menu);
-        inflater.inflate(R.menu.settings, menu);
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }

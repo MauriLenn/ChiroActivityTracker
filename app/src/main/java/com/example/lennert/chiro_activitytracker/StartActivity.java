@@ -1,32 +1,42 @@
 package com.example.lennert.chiro_activitytracker;
 
-import android.content.Context;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
-public class StartActivity extends AppCompatActivity {
+import static java.security.AccessController.getContext;
 
-    private Button listSaturdaysButton;
-    private Button chiroWebsiteButton;
+public class StartActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private Button mlistSaturdaysButton;
+    private Button mchiroWebsiteButton;
+
+    private DatePicker mCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        listSaturdaysButton = findViewById(R.id.bt_listChiroSaturdays);
-        chiroWebsiteButton = findViewById(R.id.bt_chiroWebsite);
+        mlistSaturdaysButton = findViewById(R.id.bt_listChiroSaturdays);
+        mchiroWebsiteButton = findViewById(R.id.bt_chiroWebsite);
 
-
+        mCalendar = findViewById(R.id.calendar);
     }
+
+
 
     public void onClickOpenMainActivityButton(View view){
         Intent startMainActivityIntent = new Intent(StartActivity.this, MainActivity.class);
@@ -74,5 +84,42 @@ public class StartActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+    //PREFERENCES
+    private void setupSharedPreferences(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+
+    }
+
+    public void setColor(String newColorKey) {
+        if (newColorKey.equals(getString(R.string.pref_color_brown_value))) {
+
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_lightGreen_value))) {
+
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_darkGreen_value))) {
+
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_red_value))) {
+
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_blue_value))) {
+
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_orange_value))) {
+
+        }
+        else {
+
+        }
+
     }
 }

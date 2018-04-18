@@ -9,5 +9,11 @@
         app:showAsAction="always"
         android:title="@string/ok"
         />
+    <item
+        android:id="@+id/action_back"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        android:title="back"
+        />
 
 </menu>
