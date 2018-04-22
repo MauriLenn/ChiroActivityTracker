@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -40,15 +41,17 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     public AdapterRecycler mAdapter;
     private RecyclerView mRecyclerView;
     private List<RecyclerItem> mRecyclerItems;
+    private RelativeLayout mrelativeLayout;
 
     private Toast mToast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mSaturday = findViewById(R.id.saturday_item);
+        mrelativeLayout = findViewById(R.id.background_mainActivity);
 
         //LES 2
         //fetchDataFromInternet process = new fetchDataFromInternet();

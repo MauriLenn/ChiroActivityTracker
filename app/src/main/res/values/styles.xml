@@ -5,8 +5,57 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/black</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
+
+    <style name="kabouterTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/kabouterBrown</item>
+        <item name="colorPrimaryDark">@color/kabouterBrown</item>
+        <item name="colorAccent">@color/kabouterBrown</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="speelclubTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/speelclubGreen</item>
+        <item name="colorPrimaryDark">@color/speelclubGreen</item>
+        <item name="colorAccent">@color/speelclubGreen</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="rakkerTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/rakkerGreen</item>
+        <item name="colorPrimaryDark">@color/rakkerGreen</item>
+        <item name="colorAccent">@color/rakkerGreen</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="topperTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/topperRed</item>
+        <item name="colorPrimaryDark">@color/topperRed</item>
+        <item name="colorAccent">@color/topperRed</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="kerelTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/kerelBlue</item>
+        <item name="colorPrimaryDark">@color/kerelBlue</item>
+        <item name="colorAccent">@color/kerelBlue</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="aspisTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/aspiOrange</item>
+        <item name="colorPrimaryDark">@color/aspiOrange</item>
+        <item name="colorAccent">@color/aspiOrange</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
 
 </resources>

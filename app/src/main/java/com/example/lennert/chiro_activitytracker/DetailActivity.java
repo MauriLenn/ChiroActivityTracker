@@ -51,10 +51,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
-
-        //mCalender = (CalendarView) findViewById(R.id.calendar);
-
         mDescriptionActivity = findViewById(R.id.tv_descriptionActivity);
         mNameActivity = findViewById(R.id.tv_nameActivity);
         mNumberOfMembers = findViewById(R.id.tv_numberOfMembers);
@@ -72,45 +68,14 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
             String selectedSaturday = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
             mTitleSaturday.setText(selectedSaturday);
-
-
         }
         setupSharedPreferences();
-        /*
-        //LES 5
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(NAME_ACTIVITY_TEXT_KEY)) {
-                String previousText = savedInstanceState
-                        .getString(NAME_ACTIVITY_TEXT_KEY);
-                mEditNameActivity.setText(previousText);
-            }
-            if (savedInstanceState.containsKey(DESCRIPTION_ACTIVITY_TEXT_KEY)) {
-                String previousText = savedInstanceState
-                        .getString(DESCRIPTION_ACTIVITY_TEXT_KEY);
-                mEditDescriptionActivity.setText(previousText);
-            }
-            if (savedInstanceState.containsKey(NUMBER_OF_MEMBERS_TEXT_KEY)) {
-                String previousText = savedInstanceState
-                        .getString(NUMBER_OF_MEMBERS_TEXT_KEY);
-                mEditNumberOfMembers.setText(previousText);
-            }
-            if (savedInstanceState.containsKey(NUMBER_OF_DRINKS_TEXT_KEY)) {
-                String previousText = savedInstanceState
-                        .getString(NUMBER_OF_DRINKS_TEXT_KEY);
-                mEditNumberOfDrinks.setText(previousText);
-            }
-            if (savedInstanceState.containsKey(RATING_TEXT_KEY)) {
-                String previousText = savedInstanceState
-                        .getString(RATING_TEXT_KEY);
-                float previousRating = Float.parseFloat(previousText);
-                //mEditRating.setRating(previousRating);
-            }
 
-        } */
     }
 
     private void setupSharedPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         if (sharedPreferences.getBoolean(getString(R.string.pref_kindOfUser),getResources().getBoolean(R.bool.pref_kindOfUser_default))){
             mNumberOfDrinks.setVisibility(View.GONE);
             mEditNumberOfDrinks.setVisibility(View.GONE);
@@ -155,39 +120,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
         return super.onOptionsItemSelected(item);
     }
-    /*
-    //LES 5
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        logAndAppend(ON_SAVE_INSTANCE_STATE);
-
-        String editNameActivity = mEditNameActivity.getText().toString();
-        String editDescriptionActivity = mEditDescriptionActivity.getText().toString();
-        String editNumberOfMembers = mEditNumberOfMembers.getText().toString();
-        String editNumberOfDrinks = mEditNumberOfDrinks.getText().toString();
-
-        outState.putString(NAME_ACTIVITY_TEXT_KEY,editNameActivity);
-        outState.putString(DESCRIPTION_ACTIVITY_TEXT_KEY,editDescriptionActivity);
-        outState.putString(NUMBER_OF_MEMBERS_TEXT_KEY,editNumberOfMembers);
-        outState.putString(NUMBER_OF_DRINKS_TEXT_KEY,editNumberOfDrinks);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            String editRating = String.valueOf(mEditRating.getStarRating());
-            outState.putString(RATING_TEXT_KEY,editRating);
-        }
-        else{
-            if (mToast != null){
-                mToast.cancel();
-            }
-
-            String toastMessage = "This API doesn't support the rating";
-            mToast = Toast.makeText(this,toastMessage,Toast.LENGTH_LONG);
-
-            mToast.show();
-        }
-
-    } */
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
