@@ -3,6 +3,7 @@ package com.example.lennert.chiro_activitytracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
     private Rating mEditRating;
     private Toast mToast;
 
+    private SQLiteDatabase mDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,11 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
             String selectedSaturday = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
             mTitleSaturday.setText(selectedSaturday);
         }
+
         setupSharedPreferences();
+
+        SQLDBHelper sqldbHelper = new SQLDBHelper(this);
+        mDB = sqldbHelper.getWritableDatabase();
 
     }
 
