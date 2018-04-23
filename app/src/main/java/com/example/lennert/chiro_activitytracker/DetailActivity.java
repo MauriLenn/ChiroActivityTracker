@@ -1,10 +1,14 @@
 package com.example.lennert.chiro_activitytracker;
 
+import android.app.DownloadManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Rating;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -25,7 +29,7 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
     //LOGGING
     private static final String ON_SAVE_INSTANCE_STATE = "onSaveInstanceState";
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String NAME_ACTIVITY_TEXT_KEY = "name activity";
     private static final String DESCRIPTION_ACTIVITY_TEXT_KEY = "description activity";
     private static final String NUMBER_OF_MEMBERS_TEXT_KEY = "number of members";
@@ -78,6 +82,107 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         SQLDBHelper sqldbHelper = new SQLDBHelper(this);
         mDB = sqldbHelper.getWritableDatabase();
 
+        setDetailActivity();
+
+    }
+
+
+    private void setDetailActivity(){
+
+        mEditNameActivity.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
+                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NAME_Activity},
+                mTitleSaturday.getText().toString(),
+                null,
+                null,
+                null,
+                null
+                ));
+        mEditDescriptionActivity.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
+                new String[]{SQLContract.ChiroActivityEntry.COLUMN_DESCRIPTION_ACTIVITY},
+                mTitleSaturday.getText().toString(),
+                null,
+                null,
+                null,
+                null
+        ));
+
+        mEditNumberOfMembers.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
+                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_MEMBERS},
+                mTitleSaturday.getText().toString(),
+                null,
+                null,
+                null,
+                null
+        ));
+
+        mEditNumberOfDrinks.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
+                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_DRINKS},
+                mTitleSaturday.getText().toString(),
+                null,
+                null,
+                null,
+                null
+        ));
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mEditRating = Rating.newStarRating(Rating.RATING_5_STARS,(Char) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
+                    new String[]{SQLContract.ChiroActivityEntry.COLUMN_RATING},
+                    mTitleSaturday.getText().toString(),
+                    null,
+                    null,
+                    null,
+                    null
+            ));
+        } else{
+            String message = "starRating is not supported because of the API " + Build.VERSION.SDK_INT
+                    + " is too low";
+            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+        } */
+
+    }
+
+    private void addToDatabase (MenuItem item){
+        if (mEditNameActivity.getText().length() == 0 ||
+                mEditDescriptionActivity.getText().length() == 0) {
+            return;
+        }
+        String date = mTitleSaturday.getText().toString();
+        String name = mEditNameActivity.getText().toString();
+        String description = mEditDescriptionActivity.getText().toString();
+        int members = 0;
+        int drinks = 0;
+
+        float rating = 0;
+
+        try {
+            members = Integer.parseInt(mEditNumberOfMembers.getText().toString());
+            drinks = Integer.parseInt(mEditNumberOfDrinks.getText().toString());
+            /*
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                rating = mEditRating.getStarRating();
+            } else
+            {
+                String message = "starRating is not supported because of the API " + Build.VERSION.SDK_INT
+                        + " is too low";
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            } */
+        } catch (NumberFormatException ex) {
+            Log.e(LOG_TAG, "Failed to parse text to number: " + ex.getMessage());
+        }
+
+        addNewChiroActivity(date,name,description,members,drinks ,rating );
+
+    }
+
+    private long addNewChiroActivity(String date,String name, String description, int members, int drinks, float rating){
+        ContentValues cv = new ContentValues();
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_DATE, date);
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_NAME_Activity, name);
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_DESCRIPTION_ACTIVITY, description);
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_MEMBERS, members);
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_DRINKS, drinks);
+        cv.put(SQLContract.ChiroActivityEntry.COLUMN_RATING, rating);
+        return mDB.insert(SQLContract.ChiroActivityEntry.TABLE_NAME,null,cv);
     }
 
     private void setupSharedPreferences(){
@@ -91,41 +196,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
             mEditNumberOfMembers.setVisibility(View.GONE);
         }
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
-        MenuInflater inflater = getMenuInflater();
-        /* Use the inflater's inflate method to inflate our menu layout to this menu */
-        inflater.inflate(R.menu.detail, menu);
-        /* Return true so that the menu is displayed in the Toolbar */
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int menuItemThatWasSelected = item.getItemId();
-
-
-        if (menuItemThatWasSelected == R.id.action_ok) {
-            //
-            //gegevens uploaden
-            //
-            Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
-            startActivity(startMainActivityIntent);
-            return true;
-        }
-
-        if (menuItemThatWasSelected == R.id.action_back) {
-            Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
-            startActivity(startMainActivityIntent);
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -147,8 +217,44 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
+        MenuInflater inflater = getMenuInflater();
+        /* Use the inflater's inflate method to inflate our menu layout to this menu */
+        inflater.inflate(R.menu.detail, menu);
+        /* Return true so that the menu is displayed in the Toolbar */
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int menuItemThatWasSelected = item.getItemId();
+
+        if (menuItemThatWasSelected == R.id.action_ok) {
+            addToDatabase(item);
+
+            Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
+            startActivity(startMainActivityIntent);
+            return true;
+        }
+
+        if (menuItemThatWasSelected == R.id.action_back) {
+            Intent startMainActivityIntent = new Intent(DetailActivity.this,MainActivity.class);
+            startActivity(startMainActivityIntent);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
     private void logAndAppend(String Event) {
-        Log.d(TAG, "Event: " + Event);
+        Log.d(LOG_TAG, "Event: " + Event);
 
     }
 

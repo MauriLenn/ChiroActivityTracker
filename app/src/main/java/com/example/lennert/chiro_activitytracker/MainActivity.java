@@ -31,7 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterRecycler.ListItemClickListener {
 
     //LOGGING
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DATA = "loading data";
 
     //LES 2
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     //logging
 
     private void logAndAppend(String Event) {
-        Log.d(TAG, "Event: " + Event);
+        Log.d(LOG_TAG, "Event: " + Event);
     }
 }
 
