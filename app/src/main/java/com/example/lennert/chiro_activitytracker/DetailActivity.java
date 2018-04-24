@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Rating;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +48,7 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
     private EditText mEditNumberOfMembers;
     private EditText mEditNumberOfDrinks;
 
-    private Rating mEditRating;
+    private RatingBar mEditRating;
     private Toast mToast;
 
     private SQLiteDatabase mDB;
@@ -66,8 +68,10 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         mEditDescriptionActivity = findViewById(R.id.et_descriptionActivity);
         mEditNumberOfMembers = findViewById(R.id.et_numberOfMembers);
         mEditNumberOfDrinks = findViewById(R.id.et_numberOfDrinks);
+        mEditRating = findViewById(R.id.rating);
 
         mTitleSaturday = findViewById(R.id.tv_titleSaturday);
+
 
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
@@ -91,6 +95,7 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         Cursor cursorDescriptionActivity = getDescriptionActivity();
         Cursor cursorMembers = getMembers();
         Cursor cursorDrinks = getDrinks();
+        Cursor cursorRating = getRating();
 
         if (cursorNameActivity != null && cursorNameActivity.moveToFirst()){
             String nameActivity = cursorNameActivity.getString(cursorNameActivity.getColumnIndex("name_activity"));
@@ -116,6 +121,12 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
             mEditNumberOfDrinks.setText(chiroActivity.get(3));
             cursorDrinks.close();
         }
+        if (cursorRating != null && cursorRating.moveToFirst()){
+            String rating = cursorRating.getString(cursorRating.getColumnIndex("rating"));
+            chiroActivity.add(rating);
+            mEditRating.setRating(Float.parseFloat(chiroActivity.get(4)));
+            cursorRating.close();
+        }
 
         chiroActivity.clear();
     }
@@ -137,6 +148,11 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
     private Cursor getDrinks(){
         String query = "SELECT number_of_drinks FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
+        return mDB.rawQuery(query,null);
+    }
+
+    private Cursor getRating(){
+        String query = "SELECT rating FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
         return mDB.rawQuery(query,null);
     }
 
@@ -173,15 +189,15 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         try {
             members = Integer.parseInt(mEditNumberOfMembers.getText().toString());
             drinks = Integer.parseInt(mEditNumberOfDrinks.getText().toString());
-            /*
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                rating = mEditRating.getStarRating();
+                rating = mEditRating.getRating();
             } else
             {
                 String message = "starRating is not supported because of the API " + Build.VERSION.SDK_INT
                         + " is too low";
                 Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-            } */
+            }
         } catch (NumberFormatException ex) {
             Log.e(LOG_TAG, "Failed to parse text to number: " + ex.getMessage());
         }
@@ -265,9 +281,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
     private void logAndAppend(String Event) {
         Log.d(LOG_TAG, "Event: " + Event);
