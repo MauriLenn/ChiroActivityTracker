@@ -1,14 +1,11 @@
 package com.example.lennert.chiro_activitytracker;
 
-import android.app.DownloadManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Rating;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -17,10 +14,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 //LES 4
 
@@ -86,43 +84,62 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
     }
 
-
     private void setDetailActivity(){
+        ArrayList<String> chiroActivity = new ArrayList<>();
 
-        mEditNameActivity.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
-                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NAME_Activity},
-                mTitleSaturday.getText().toString(),
-                null,
-                null,
-                null,
-                null
-                ));
-        mEditDescriptionActivity.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
-                new String[]{SQLContract.ChiroActivityEntry.COLUMN_DESCRIPTION_ACTIVITY},
-                mTitleSaturday.getText().toString(),
-                null,
-                null,
-                null,
-                null
-        ));
+        Cursor cursorNameActivity = getNameActivity();
+        Cursor cursorDescriptionActivity = getDescriptionActivity();
+        Cursor cursorMembers = getMembers();
+        Cursor cursorDrinks = getDrinks();
 
-        mEditNumberOfMembers.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
-                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_MEMBERS},
-                mTitleSaturday.getText().toString(),
-                null,
-                null,
-                null,
-                null
-        ));
+        if (cursorNameActivity != null && cursorNameActivity.moveToFirst()){
+            String nameActivity = cursorNameActivity.getString(cursorNameActivity.getColumnIndex("name_activity"));
+            chiroActivity.add(nameActivity);
+            mEditNameActivity.setText(chiroActivity.get(0));
+            cursorNameActivity.close();
+        }
+        if (cursorDescriptionActivity != null && cursorDescriptionActivity.moveToFirst()){
+            String descriptionActivity = cursorDescriptionActivity.getString(cursorDescriptionActivity.getColumnIndex("description_activity"));
+            chiroActivity.add(descriptionActivity);
+            mEditDescriptionActivity.setText(chiroActivity.get(1));
+            cursorDescriptionActivity.close();
+        }
+        if (cursorMembers != null && cursorMembers.moveToFirst()){
+            String members = cursorMembers.getString(cursorMembers.getColumnIndex("number_of_members"));
+            chiroActivity.add(members);
+            mEditNumberOfMembers.setText(chiroActivity.get(2));
+            cursorMembers.close();
+        }
+        if (cursorDrinks != null && cursorDrinks.moveToFirst()){
+            String drinks = cursorDrinks.getString(cursorDrinks.getColumnIndex("number_of_drinks"));
+            chiroActivity.add(drinks);
+            mEditNumberOfDrinks.setText(chiroActivity.get(3));
+            cursorDrinks.close();
+        }
 
-        mEditNumberOfDrinks.setText((CharSequence) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
-                new String[]{SQLContract.ChiroActivityEntry.COLUMN_NUMBER_OF_DRINKS},
-                mTitleSaturday.getText().toString(),
-                null,
-                null,
-                null,
-                null
-        ));
+        chiroActivity.clear();
+    }
+
+    private Cursor getNameActivity(){
+        String query = "SELECT name_activity FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
+        return mDB.rawQuery(query,null);
+    }
+
+    private Cursor getDescriptionActivity(){
+        String query = "SELECT description_activity FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
+        return mDB.rawQuery(query,null);
+    }
+
+    private Cursor getMembers(){
+        String query = "SELECT number_of_members FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
+        return mDB.rawQuery(query,null);
+    }
+
+    private Cursor getDrinks(){
+        String query = "SELECT number_of_drinks FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
+        return mDB.rawQuery(query,null);
+    }
+
         /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mEditRating = Rating.newStarRating(Rating.RATING_5_STARS,(Char) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
@@ -139,7 +156,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
             Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
         } */
 
-    }
 
     private void addToDatabase (MenuItem item){
         if (mEditNameActivity.getText().length() == 0 ||

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     private static final String DATA = "loading data";
 
     //LES 2
-    private static final String URL_DATA = "https://api.myjson.com/bins/rxshb";
+    private static final String URL_DATA = "https://api.myjson.com/bins/1fiulv";
 
     //LES 3
     public AdapterRecycler mAdapter;
