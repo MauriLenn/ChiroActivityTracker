@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,6 +54,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         RecyclerItem recyclerItem = recyclerItems.get(position);
 
         holder.mSaturdayTextView.setText(recyclerItem.getSaturdayDate());
+        Picasso.with(context).load(recyclerItem.getWeather()).into(holder.mWeatherSymbol);
     }
 
     @Override
@@ -62,11 +66,13 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public final TextView mSaturdayTextView;
+        public ImageView mWeatherSymbol;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mSaturdayTextView = itemView.findViewById(R.id.tv_saturday);
+            mWeatherSymbol = itemView.findViewById(R.id.weatherSymbol);
 
             itemView.setOnClickListener(this);
 

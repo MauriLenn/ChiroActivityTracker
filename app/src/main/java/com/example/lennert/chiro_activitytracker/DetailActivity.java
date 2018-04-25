@@ -72,21 +72,24 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
         mTitleSaturday = findViewById(R.id.tv_titleSaturday);
 
-
+        //MENU
         Intent intentThatStartedThisActivity = getIntent();
         if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
             String selectedSaturday = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
             mTitleSaturday.setText(selectedSaturday);
         }
 
+        //SHARED PREFERENCES
         setupSharedPreferences();
 
+        //DATABASE SQL
         SQLDBHelper sqldbHelper = new SQLDBHelper(this);
         mDB = sqldbHelper.getWritableDatabase();
-
         setDetailActivity();
 
     }
+
+    //DATABASE SQL
 
     private void setDetailActivity(){
         ArrayList<String> chiroActivity = new ArrayList<>();
@@ -156,23 +159,6 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         return mDB.rawQuery(query,null);
     }
 
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mEditRating = Rating.newStarRating(Rating.RATING_5_STARS,(Char) mDB.query(SQLContract.ChiroActivityEntry.TABLE_NAME,
-                    new String[]{SQLContract.ChiroActivityEntry.COLUMN_RATING},
-                    mTitleSaturday.getText().toString(),
-                    null,
-                    null,
-                    null,
-                    null
-            ));
-        } else{
-            String message = "starRating is not supported because of the API " + Build.VERSION.SDK_INT
-                    + " is too low";
-            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-        } */
-
-
     private void addToDatabase (MenuItem item){
         if (mEditNameActivity.getText().length() == 0 ||
                 mEditDescriptionActivity.getText().length() == 0) {
@@ -217,6 +203,8 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         return mDB.insert(SQLContract.ChiroActivityEntry.TABLE_NAME,null,cv);
     }
 
+    //SHARED PREFERENCES
+
     private void setupSharedPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -248,6 +236,8 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    //MENU
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,6 +271,8 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
 
         return super.onOptionsItemSelected(item);
     }
+
+    //LOGGING
 
     private void logAndAppend(String Event) {
         Log.d(LOG_TAG, "Event: " + Event);

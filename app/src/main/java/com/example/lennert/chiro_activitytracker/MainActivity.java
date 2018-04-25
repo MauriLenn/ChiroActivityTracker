@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     private static final String DATA = "loading data";
 
     //LES 2
-    private static final String URL_DATA = "https://api.myjson.com/bins/1fiulv";
+    private static final String URL_DATA = "https://api.myjson.com/bins/12ornj";
 
     //LES 3
     public AdapterRecycler mAdapter;
@@ -123,9 +123,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
                     for (int i= 0; i<JA.length();i++){
                         JSONObject JO = JA.getJSONObject(i);
-                        String singleParsed;
-                        singleParsed = JO.getString("day") + " " + JO.getString("month") + " " + JO.getString("year");//een single json object van de array
-                        RecyclerItem recyclerItem = new RecyclerItem(singleParsed);
+                        String date= JO.getString("day") + " " + JO.getString("month") + " " + JO.getString("year");//een single json object van de array
+                        String weather = JO.getString("weather");
+                        RecyclerItem recyclerItem = new RecyclerItem(date,weather);
                         mRecyclerItems.add(recyclerItem);
                     }
 
@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                    //LOGGING
+
                 }
 
             }
