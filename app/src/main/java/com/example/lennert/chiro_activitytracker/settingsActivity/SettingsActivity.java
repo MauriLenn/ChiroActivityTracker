@@ -1,17 +1,20 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.settingsActivity;
 
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.lennert.chiro_activitytracker.R;
+
 import java.util.Set;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

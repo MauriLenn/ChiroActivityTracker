@@ -1,7 +1,6 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.mainActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lennert.chiro_activitytracker.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

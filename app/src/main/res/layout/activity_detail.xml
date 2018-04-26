@@ -3,7 +3,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.lennert.chiro_activitytracker.DetailActivity"
+    tools:context="com.example.lennert.chiro_activitytracker.detailActivity.DetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/background_detailActivity"

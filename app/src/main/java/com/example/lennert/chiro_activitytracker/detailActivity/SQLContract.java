@@ -1,4 +1,4 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.detailActivity;
 
 import android.provider.BaseColumns;
 

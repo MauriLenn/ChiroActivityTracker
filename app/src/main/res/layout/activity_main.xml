@@ -3,14 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:id="@+id/background_mainActivity"
    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec_saturdays"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        >
 
 
     </android.support.v7.widget.RecyclerView>

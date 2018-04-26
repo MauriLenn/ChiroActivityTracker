@@ -1,11 +1,9 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.startActivity;
 
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -16,10 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import static java.security.AccessController.getContext;
+import com.example.lennert.chiro_activitytracker.mainActivity.MainActivity;
+import com.example.lennert.chiro_activitytracker.R;
+import com.example.lennert.chiro_activitytracker.settingsActivity.SettingsActivity;
 
 public class StartActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -119,62 +117,40 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
             setTheme(R.style.kabouterTheme);
             setContentView(R.layout.activity_start);
 
-            /*
-            mCalendar.setBackgroundColor(getResources().getColor(R.color.kabouterBrown));
-            mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.kabouterBrown));
-            mscrollview.setBackgroundColor(getResources().getColor(R.color.kabouterBrown));
-            */
+
         }
         else if (newColorKey.equals(getString(R.string.pref_color_lightGreen_value))) {
             setTheme(R.style.speelclubTheme);
             setContentView(R.layout.activity_start);
 
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.speelclubGreen));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.speelclubGreen));
-            //mscrollview.setBackgroundColor(getResources().getColor(R.color.speelclubGreen));
         }
         else if (newColorKey.equals(getString(R.string.pref_color_darkGreen_value))) {
             setTheme(R.style.rakkerTheme);
             setContentView(R.layout.activity_start);
 
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.rakkerGreen));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.rakkerGreen));
-            //mscrollview.setBackgroundColor(getResources().getColor(R.color.rakkerGreen));
         }
         else if (newColorKey.equals(getString(R.string.pref_color_red_value))) {
             setTheme(R.style.topperTheme);
             setContentView(R.layout.activity_start);
-
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.topperRed));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.topperRed));
-            //mscrollview.setBackgroundColor(getResources().getColor(R.color.topperRed));
         }
         else if (newColorKey.equals(getString(R.string.pref_color_blue_value))) {
             setTheme(R.style.kerelTheme);
             setContentView(R.layout.activity_start);
-
-            mCalendar.setBackgroundColor(getResources().getColor(R.color.kerelBlue));
-            mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.kerelBlue));
-            mscrollview.setBackgroundColor(getResources().getColor(R.color.kerelBlue));
         }
         else if (newColorKey.equals(getString(R.string.pref_color_orange_value))) {
             setTheme(R.style.aspisTheme);
             setContentView(R.layout.activity_start);
-
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.aspiOrange));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.aspiOrange));
-            //mscrollview.setBackgroundColor(getResources().getColor(R.color.aspiOrange));
         }
         else {
             setTheme(R.style.AppTheme);
             setContentView(R.layout.activity_start);
-
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.n));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.kabouterBrown));
-            //mCalendar.setBackgroundColor(getResources().getColor(R.color.white));
-            //mCalendar.setDrawingCacheBackgroundColor(getResources().getColor(R.color.white));
-            //mscrollview.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 }

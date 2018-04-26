@@ -1,10 +1,11 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.mainActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lennert.chiro_activitytracker.detailActivity.DetailActivity;
+import com.example.lennert.chiro_activitytracker.R;
+import com.example.lennert.chiro_activitytracker.settingsActivity.SettingsActivity;
+import com.example.lennert.chiro_activitytracker.startActivity.StartActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,20 +33,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterRecycler.ListItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterRecycler.ListItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     //LOGGING
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DATA = "loading data";
 
     //LES 2
-    private static final String URL_DATA = "https://api.myjson.com/bins/12ornj";
+    private static final String URL_DATA = "https://api.myjson.com/bins/12ud1j";
 
     //LES 3
     public AdapterRecycler mAdapter;
     private RecyclerView mRecyclerView;
     private List<RecyclerItem> mRecyclerItems;
-    private RelativeLayout mrelativeLayout;
 
     private Toast mToast;
 
@@ -51,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mrelativeLayout = findViewById(R.id.background_mainActivity);
 
         //LES 2
         //fetchDataFromInternet process = new fetchDataFromInternet();
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
         //LES 4
 
+        setupSharedPreferences();
     }
 
 
@@ -168,6 +172,56 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         startDetailActivityIntent.putExtra(Intent.EXTRA_TEXT, saturdayDate);
 
         startActivity(startDetailActivityIntent);
+    }
+
+    //PREFERENCES
+    private void setupSharedPreferences(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        loadColorFromPreferences(sharedPreferences);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    private void loadColorFromPreferences(SharedPreferences sharedPreferences){
+        setColor(sharedPreferences.getString(getString(R.string.pref_color_key),getString(R.string.pref_color_neutral_value)));
+    }
+
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_color_key))){
+            loadColorFromPreferences(sharedPreferences);
+        }
+    }
+
+    public void setColor(String newColorKey) {
+        if (newColorKey.equals(getString(R.string.pref_color_brown_value))) {
+           mRecyclerView.setBackgroundColor(getResources().getColor(R.color.kabouterBrown));
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_lightGreen_value))) {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.speelclubGreen));
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_darkGreen_value))) {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.rakkerGreen));
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_red_value))) {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.topperRed));
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_blue_value))) {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.kerelBlue));
+        }
+        else if (newColorKey.equals(getString(R.string.pref_color_orange_value))) {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.aspiOrange));
+        }
+        else {
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 
     //logging

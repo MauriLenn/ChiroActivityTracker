@@ -1,11 +1,11 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.detailActivity;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-import com.example.lennert.chiro_activitytracker.SQLContract.*;
+import com.example.lennert.chiro_activitytracker.detailActivity.SQLContract.*;
 
 /**
  * Created by Lennert on 22/04/2018.

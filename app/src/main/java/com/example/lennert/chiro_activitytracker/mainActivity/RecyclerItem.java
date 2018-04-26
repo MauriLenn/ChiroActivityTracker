@@ -1,4 +1,4 @@
-package com.example.lennert.chiro_activitytracker;
+package com.example.lennert.chiro_activitytracker.mainActivity;
 
 /**
  * Created by Lennert on 26/03/2018.
