@@ -8,10 +8,12 @@ public class RecyclerItem {
 
     private String saturdayDate;
     private String weather;
+    private String temperature;
 
-    public RecyclerItem(String saturdayDate, String weather) {
+    public RecyclerItem(String saturdayDate, String weather,String temperature) {
         this.saturdayDate = saturdayDate;
         this.weather = weather;
+        this.temperature = temperature;
     }
 
     public String getSaturdayDate() {
@@ -20,5 +22,9 @@ public class RecyclerItem {
 
     public String getWeather() {
         return weather;
+    }
+
+    public String getTemperature() {
+        return temperature;
     }
 }

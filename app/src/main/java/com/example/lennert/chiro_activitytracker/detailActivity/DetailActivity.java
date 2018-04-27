@@ -136,7 +136,7 @@ public class DetailActivity extends AppCompatActivity implements SharedPreferenc
         chiroActivity.clear();
     }
 
-    private Cursor getNameActivity(){
+    public Cursor getNameActivity(){
         String query = "SELECT name_activity FROM Chiro WHERE date = '" + mTitleSaturday.getText().toString()+ "'";
         return mDB.rawQuery(query,null);
     }

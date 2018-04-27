@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     private static final String DATA = "loading data";
 
     //LES 2
-    private static final String URL_DATA = "https://api.myjson.com/bins/12ud1j";
+    private static final String URL_DATA = "https://api.myjson.com/bins/127pgf";
 
     //LES 3
     public AdapterRecycler mAdapter;
@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //LES 2
         //fetchDataFromInternet process = new fetchDataFromInternet();
@@ -75,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         //LES 4
 
         setupSharedPreferences();
+
+
     }
 
 
@@ -129,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
                         JSONObject JO = JA.getJSONObject(i);
                         String date= JO.getString("day") + " " + JO.getString("month") + " " + JO.getString("year");//een single json object van de array
                         String weather = JO.getString("weather");
-                        RecyclerItem recyclerItem = new RecyclerItem(date,weather);
+                        String temperature = JO.getString("temperature");
+                        RecyclerItem recyclerItem = new RecyclerItem(date,weather,temperature);
                         mRecyclerItems.add(recyclerItem);
                     }
 

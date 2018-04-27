@@ -1,6 +1,7 @@
 package com.example.lennert.chiro_activitytracker.mainActivity;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lennert.chiro_activitytracker.R;
+import com.example.lennert.chiro_activitytracker.detailActivity.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -54,6 +56,8 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         RecyclerItem recyclerItem = recyclerItems.get(position);
 
         holder.mSaturdayTextView.setText(recyclerItem.getSaturdayDate());
+
+        holder.mTemperatureTextView.setText(recyclerItem.getTemperature());
         Picasso.with(context).load(recyclerItem.getWeather()).into(holder.mWeatherSymbol);
     }
 
@@ -67,12 +71,16 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
 
         public final TextView mSaturdayTextView;
         public ImageView mWeatherSymbol;
+        public TextView mTemperatureTextView;
+        public TextView mActivityTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mSaturdayTextView = itemView.findViewById(R.id.tv_saturday);
             mWeatherSymbol = itemView.findViewById(R.id.weatherSymbol);
+            mTemperatureTextView = itemView.findViewById(R.id.tv_temperature);
+            mActivityTextView = itemView.findViewById(R.id.tv_activity);
 
             itemView.setOnClickListener(this);
 
