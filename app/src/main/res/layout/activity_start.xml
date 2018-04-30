@@ -21,25 +21,44 @@
 
         <Button
             android:id="@+id/bt_listChiroSaturdays"
-            android:text="list ChiroSaturdays"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/calendar"
-            android:layout_alignStart="@+id/calendar"
-            android:layout_below="@+id/calendar"
-            android:onClick="onClickOpenMainActivityButton"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/bt_chiroWebsite"
+            android:onClick="onClickOpenMainActivityButton"
+            android:text="list ChiroSaturdays"
+            />
 
         <Button
             android:id="@+id/bt_chiroWebsite"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/calendar"
-            android:layout_alignRight="@+id/calendar"
-            android:layout_below="@+id/calendar"
+            android:layout_below="@+id/ic_chiro_herk_big"
+            android:layout_centerHorizontal="true"
             android:text="Chirowebsite"
-            android:layout_toRightOf="@id/bt_listChiroSaturdays"
-            android:layout_toEndOf="@id/bt_listChiroSaturdays"
-            android:onClick="onClickOpenChiroWebsiteButton"/>
+            android:onClick="onClickOpenChiroWebsiteButton"
+            />
+        <Button
+            android:id="@+id/bt_saturdayProgram"
+            android:onClick="onClickOpenProgramActivityButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@id/bt_listChiroSaturdays"
+            android:text="Saturday Program"/>
+
+        <ImageView
+            android:id="@+id/ic_chiro_herk_big"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:adjustViewBounds="true"
+            android:layout_below="@+id/calendar"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/chiro_herk_big"
+            />
 
     </RelativeLayout>
 </ScrollView>

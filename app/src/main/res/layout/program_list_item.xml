@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/ic_chiroBranch"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/tv_branch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@id/ic_chiroBranch"
+                android:layout_toEndOf="@id/ic_chiroBranch" />
+            <TextView
+                android:id="@+id/tv_program"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/ic_chiroBranch"
+                android:layout_toEndOf="@id/ic_chiroBranch"
+                android:layout_below="@id/tv_branch"/>
+
+        </RelativeLayout>
+        
+        
+    </android.support.v7.widget.CardView>
+</LinearLayout>

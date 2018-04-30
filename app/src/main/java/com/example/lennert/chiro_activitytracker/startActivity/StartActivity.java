@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.example.lennert.chiro_activitytracker.mainActivity.MainActivity;
 import com.example.lennert.chiro_activitytracker.R;
+import com.example.lennert.chiro_activitytracker.programActivity.ProgramActivity;
 import com.example.lennert.chiro_activitytracker.settingsActivity.SettingsActivity;
 
 public class StartActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -26,6 +28,7 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
 
     private DatePicker mCalendar;
     private ScrollView mscrollview;
+    private ImageView mChiroIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,19 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
         mchiroWebsiteButton = findViewById(R.id.bt_chiroWebsite);
 
         mCalendar = findViewById(R.id.calendar);
-
         mscrollview = findViewById(R.id.background_startActivity);
+        mChiroIcon = findViewById(R.id.ic_chiro_herk_big);
 
         setupSharedPreferences();
     }
 
+    public void onClickOpenProgramActivityButton (View view) {
+        Intent startProgramActivityIntent = new Intent(StartActivity.this, ProgramActivity.class);
+
+        if (startProgramActivityIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(startProgramActivityIntent);
+        }
+    }
 
 
     public void onClickOpenMainActivityButton(View view){
@@ -116,7 +126,6 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
         if (newColorKey.equals(getString(R.string.pref_color_brown_value))) {
             setTheme(R.style.kabouterTheme);
             setContentView(R.layout.activity_start);
-
 
         }
         else if (newColorKey.equals(getString(R.string.pref_color_lightGreen_value))) {

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Chiro-ActivityTracker</string>
-
+    <string name="program_activity">Saturday program</string>
+    <string name="main_activity">Chiro Saturdays</string>
+    <string name="detail_activity">Chiro Saturday</string>
+    
     <string name="settings">Settings</string>
     <string name="ok">Save</string>
     <string name="beginScreen">Start</string>
