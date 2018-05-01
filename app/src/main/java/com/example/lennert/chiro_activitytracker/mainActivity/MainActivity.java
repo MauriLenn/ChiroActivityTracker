@@ -37,81 +37,67 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
     //LOGGING
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final String DATA = "loading data";
+    private static final String DATA = "data loaded";
+    private static final String SET_INTENT = "Settings selected";
+    private static final String START_INTENT = "start selected";
+    private static final String JSONE = "JSON parsing exception: ";
+    //
 
-    //LES 2
-    private static final String URL_DATA = "https://api.myjson.com/bins/127pgf";
+    private static final String URL_DATA = "https://api.myjson.com/bins/1a9t4n";
 
-    //LES 3
+
     public AdapterRecycler mAdapter;
     private RecyclerView mRecyclerView;
     private List<RecyclerItem> mRecyclerItems;
-
-    private Toast mToast;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //LES 2
-        //fetchDataFromInternet process = new fetchDataFromInternet();
-        //process.execute();
-
         loadRecyclerViewData();
 
-        //LES 3
         mRecyclerView = findViewById(R.id.rec_saturdays);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-
         mRecyclerView.setHasFixedSize(true);
-
         mRecyclerItems = new ArrayList<>();
 
-        //LES 4
-
         setupSharedPreferences();
-
-
     }
 
 
-    //LES 1
+    //MENU
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
         MenuInflater inflater = getMenuInflater();
-        /* Use the inflater's inflate method to inflate our menu layout to this menu */
         inflater.inflate(R.menu.main, menu);
-        /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuItemThatWasSelected = item.getItemId();
 
-
         if (menuItemThatWasSelected == R.id.action_settingsActivity) {
             Intent startSettingsActivityIntent = new Intent(MainActivity.this,SettingsActivity.class);
+            infoLogAndAppend(SET_INTENT);
             startActivity(startSettingsActivityIntent);
             return true;
         }
 
         if (menuItemThatWasSelected == R.id.action_startActivity) {
             Intent startStartActivityIntent = new Intent(MainActivity.this,StartActivity.class);
+            infoLogAndAppend(START_INTENT);
             startActivity(startStartActivityIntent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    //LES 2
 
+    //RECYCLERVIEW
     private void loadRecyclerViewData() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading data...");
@@ -141,9 +127,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-
-                    //LOGGING
-
+                    errorLogAndAppend(JSONE + e.getMessage());
                 }
 
             }
@@ -159,22 +143,21 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        logAndAppend(DATA);
+        infoLogAndAppend(DATA);
     }
 
-    //LES 3
     @Override
     public void onListItemClick(int clickedItemIndex) {
-
         RecyclerItem selectedSaturday = mRecyclerItems.get(clickedItemIndex);
         String saturdayDate = selectedSaturday.getSaturdayDate();
 
+        infoLogAndAppend("selected " + saturdayDate );
+
         Intent startDetailActivityIntent = new Intent(MainActivity.this, DetailActivity.class);
-
         startDetailActivityIntent.putExtra(Intent.EXTRA_TEXT, saturdayDate);
-
         startActivity(startDetailActivityIntent);
     }
+
 
     //PREFERENCES
     private void setupSharedPreferences(){
@@ -226,10 +209,14 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycler.L
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    //logging
 
-    private void logAndAppend(String Event) {
-        Log.d(LOG_TAG, "Event: " + Event);
+    //LOGGING
+    private void infoLogAndAppend(String Event) {
+        Log.i(LOG_TAG, "Event: " + Event);
+    }
+
+    private void errorLogAndAppend(String Event) {
+        Log.e(LOG_TAG, "Event: " + Event);
     }
 }
 

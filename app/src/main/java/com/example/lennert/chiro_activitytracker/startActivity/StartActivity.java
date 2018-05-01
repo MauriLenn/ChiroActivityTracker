@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +23,14 @@ import com.example.lennert.chiro_activitytracker.programActivity.ProgramActivity
 import com.example.lennert.chiro_activitytracker.settingsActivity.SettingsActivity;
 
 public class StartActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    //LOGGING
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String SET_INTENT = "Settings selected";
+    private static final String BT_WEBSITE = "go to chirowebsite";
+    private static final String BT_LIST = "go to list of chirosaturdays";
+    private static final String BT_PROGRAM = "go to the program of saturday";
+    //
 
     private Button mlistSaturdaysButton;
     private Button mchiroWebsiteButton;
@@ -42,21 +51,45 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
         mscrollview = findViewById(R.id.background_startActivity);
         mChiroIcon = findViewById(R.id.ic_chiro_herk_big);
 
+        //PREFERENCES
         setupSharedPreferences();
     }
 
+
+    //MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.start, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int menuItemThatWasSelected = item.getItemId();
+
+        if (menuItemThatWasSelected == R.id.action_settingsActivity) {
+            Intent startSettingsActivityIntent = new Intent(StartActivity.this,SettingsActivity.class);
+            infoLogAndAppend(SET_INTENT);
+            startActivity(startSettingsActivityIntent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    //ON CLICK METHODS
     public void onClickOpenProgramActivityButton (View view) {
         Intent startProgramActivityIntent = new Intent(StartActivity.this, ProgramActivity.class);
-
+        infoLogAndAppend(BT_PROGRAM);
         if (startProgramActivityIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(startProgramActivityIntent);
         }
     }
 
-
     public void onClickOpenMainActivityButton(View view){
         Intent startMainActivityIntent = new Intent(StartActivity.this, MainActivity.class);
-
+        infoLogAndAppend(BT_LIST);
         if (startMainActivityIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(startMainActivityIntent);
         }
@@ -65,6 +98,7 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
 
     public void onClickOpenChiroWebsiteButton(View view){
         String urlAsString = "http://chiro-herk.be/menu.php";
+        infoLogAndAppend(BT_WEBSITE);
         openChiroWebsite(urlAsString);
     }
 
@@ -78,30 +112,6 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
-        MenuInflater inflater = getMenuInflater();
-        /* Use the inflater's inflate method to inflate our menu layout to this menu */
-        inflater.inflate(R.menu.start, menu);
-        /* Return true so that the menu is displayed in the Toolbar */
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int menuItemThatWasSelected = item.getItemId();
-
-
-        if (menuItemThatWasSelected == R.id.action_settingsActivity) {
-            Intent startSettingsActivityIntent = new Intent(StartActivity.this,SettingsActivity.class);
-            startActivity(startSettingsActivityIntent);
-        }
-
-        return super.onOptionsItemSelected(item);
-
-    }
 
     //PREFERENCES
     private void setupSharedPreferences(){
@@ -161,5 +171,15 @@ public class StartActivity extends AppCompatActivity implements SharedPreference
     protected void onDestroy() {
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+
+    //LOGGING
+    private void infoLogAndAppend(String Event) {
+        Log.i(LOG_TAG, "Event: " + Event);
+    }
+
+    private void errorLogAndAppend(String Event) {
+        Log.e(LOG_TAG, "Event: " + Event);
     }
 }

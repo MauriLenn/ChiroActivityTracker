@@ -9,6 +9,19 @@
     <string name="beginScreen">Start</string>
     <string name="temperatureUnit">°C</string>
 
+    <!--activity_detail -->
+    <string name="name_activity">Name Activity</string>
+    <string name="description_activity">Description Activity</string>
+    <string name="number_of_members">Number Of Members</string>
+    <string name="number_of_drinks">Number Of Drinks</string>
+    <string name="rating">Rating</string>
+
+    <!--activity_start -->
+    <string name="list_chiroSaturdays">List ChiroSaturdays</string>
+    <string name="chirowebsite">ChiroWebsite</string>
+    <string name="saturday_program">Saturday Program</string>
+
+    <!-- AdapterRecycler2 -->
     <string name="firstBranch">kabouters</string>
     <string name="secondBranch">speelclub</string>
     <string name="thirdBranch">rakkers</string>

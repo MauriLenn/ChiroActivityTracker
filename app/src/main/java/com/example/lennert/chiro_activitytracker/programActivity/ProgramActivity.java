@@ -33,15 +33,17 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
 
     //LOGGING
     private static final String LOG_TAG = ProgramActivity.class.getSimpleName();
-    private static final String DATA = "loading data";
+    private static final String DATA = "data loaded";
+    private static final String JSONE = "JSON parsing exception: ";
+    private static final String BACK = "go to Startactivity";
+    //
 
-    private static final String URL_DATA = "https://api.myjson.com/bins/s1qav";
+    private static final String URL_DATA = "https://api.myjson.com/bins/1a3dnb";
 
     public AdapterRecycler2 mAdapter;
     private RecyclerView mRecyclerView;
     private List<RecyclerItem2> mRecyclerItem2s;
     private TextView mSaturdayDate;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,30 +53,39 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
         mRecyclerView = findViewById(R.id.rec_programs);
         mSaturdayDate = findViewById(R.id.tv_saturdayDate);
 
+        //MENU
+        ActionBar actionBar = this.getSupportActionBar();
+
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        //RECYCLERVIEW
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerItem2s = new ArrayList<>();
 
         loadData();
+
+        //PREFERENCES
         setupSharedPreferences();
-
-        ActionBar actionBar = this.getSupportActionBar();
-
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
+
+    //MENU
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuItemThatWasSelected = item.getItemId();
         if (menuItemThatWasSelected == R.id.home) {
+            infoLogAndAppend(BACK);
             NavUtils.navigateUpFromSameTask(this);
         }
         return super.onOptionsItemSelected(item);
     }
 
+
+    //RECYCLERVIEW
     private void loadData() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading data...");
@@ -105,9 +116,7 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-
-                    //LOGGING
-
+                    errorLogAndAppend(JSONE + e.getMessage());
                 }
 
             }
@@ -123,8 +132,9 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        logAndAppend(DATA);
+        infoLogAndAppend(DATA);
     }
+
 
     //PREFERENCES
     private void setupSharedPreferences(){
@@ -176,7 +186,12 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void logAndAppend(String Event) {
-        Log.d(LOG_TAG, "Event: " + Event);
+    //LOGGING
+    private void infoLogAndAppend(String Event) {
+        Log.i(LOG_TAG, "Event: " + Event);
+    }
+
+    private void errorLogAndAppend(String Event) {
+        Log.e(LOG_TAG, "Event: " + Event);
     }
 }

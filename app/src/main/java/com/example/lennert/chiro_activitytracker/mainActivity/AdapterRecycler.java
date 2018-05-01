@@ -81,7 +81,7 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.ViewHo
         } else{
             holder.mCardview.setBackgroundColor(context.getResources().getColor(R.color.rakkerGreen));
         }
-        holder.mWeatherSymbol.setBackgroundColor(context.getResources().getColor(R.color.white));
+        //holder.mWeatherSymbol.setBackgroundColor(context.getResources().getColor(R.color.white));
         holder.mTemperatureTextView.setText(recyclerItem.getTemperature());
         holder.mActivityTextView.setTextColor(context.getResources().getColor(R.color.white));
         Picasso.with(context).load(recyclerItem.getWeather()).into(holder.mWeatherSymbol);

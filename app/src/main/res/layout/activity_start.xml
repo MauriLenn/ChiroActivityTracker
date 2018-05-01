@@ -27,7 +27,8 @@
             android:layout_marginTop="10dp"
             android:layout_below="@+id/bt_chiroWebsite"
             android:onClick="onClickOpenMainActivityButton"
-            android:text="list ChiroSaturdays"
+            android:textSize="15sp"
+            android:text="@string/list_chiroSaturdays"
             />
 
         <Button
@@ -36,8 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ic_chiro_herk_big"
             android:layout_centerHorizontal="true"
-            android:text="Chirowebsite"
+            android:text="@string/chirowebsite"
             android:onClick="onClickOpenChiroWebsiteButton"
+            android:textSize="15sp"
             />
         <Button
             android:id="@+id/bt_saturdayProgram"
@@ -48,7 +50,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:layout_below="@id/bt_listChiroSaturdays"
-            android:text="Saturday Program"/>
+            android:text="@string/saturday_program"
+            android:textSize="15sp"/>
 
         <ImageView
             android:id="@+id/ic_chiro_herk_big"
