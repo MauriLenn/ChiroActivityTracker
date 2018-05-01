@@ -20,6 +20,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
+                android:contentDescription="@string/branchSymbol"
                 />
             <TextView
                 android:id="@+id/tv_branch"

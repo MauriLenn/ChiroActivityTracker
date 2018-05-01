@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Chiro-ActivityTracker</string>
-    <string name="program_activity">Saturday program</string>
+    <string name="program_activity">Saturday Program</string>
     <string name="main_activity">Chiro Saturdays</string>
     <string name="detail_activity">Chiro Saturday</string>
     
@@ -8,6 +8,8 @@
     <string name="ok">Save</string>
     <string name="beginScreen">Start</string>
     <string name="temperatureUnit">°C</string>
+    <string name="weatherSymbol">Weather Symbol</string>
+    <string name="branchSymbol">Branch Symbol</string>
 
     <!--activity_detail -->
     <string name="name_activity">Name Activity</string>

@@ -34,19 +34,19 @@
 
             <TextView
                 android:id="@+id/tv_temperature"
-                android:layout_width="23dp"
-                android:layout_height="27dp"
+                android:layout_width="24dp"
+                android:layout_height="29dp"
                 android:layout_below="@id/tv_saturday"
                 android:layout_margin="15dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/weatherSymbol"
                 android:layout_toRightOf="@id/weatherSymbol"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/weatherSymbol"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:id="@+id/tv_activity"
@@ -69,16 +69,18 @@
                 android:id="@+id/tv_temperatureUnit"
                 android:layout_width="26dp"
                 android:layout_height="28dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/temperatureUnit"
                 android:textSize="20sp"
                 android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_temperature" />
+                app:layout_constraintStart_toEndOf="@+id/tv_temperature"
+                app:layout_constraintTop_toBottomOf="@+id/weatherSymbol" />
 
             <ImageView
                 android:id="@+id/weatherSymbol"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="@string/weatherSymbol"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
