@@ -35,7 +35,7 @@ public class ProgramActivity extends AppCompatActivity implements SharedPreferen
     private static final String LOG_TAG = ProgramActivity.class.getSimpleName();
     private static final String DATA = "loading data";
 
-    private static final String URL_DATA = "https://api.myjson.com/bins/1fft47";
+    private static final String URL_DATA = "https://api.myjson.com/bins/s1qav";
 
     public AdapterRecycler2 mAdapter;
     private RecyclerView mRecyclerView;

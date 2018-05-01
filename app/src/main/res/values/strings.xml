@@ -9,10 +9,18 @@
     <string name="beginScreen">Start</string>
     <string name="temperatureUnit">°C</string>
 
+    <string name="firstBranch">kabouters</string>
+    <string name="secondBranch">speelclub</string>
+    <string name="thirdBranch">rakkers</string>
+    <string name="fourthBranch">toppers</string>
+    <string name="fifthBranch">kerels</string>
+    <string name="sixthBranch">aspis</string>
+
     <!--checkbox preference -->
     <string name="pref_kindOfUser" translatable="false">kindOfUser</string>
 
     <!--List preferences -->
+
     <!-- Label for the color preference -->
     <string name="pref_color_label">Branch</string>
 
